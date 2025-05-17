@@ -5,6 +5,9 @@ Se desarrollo esta API haciendo uso del framework de python FastAPI.
 IP productiva:
     https://user-management-api-584421432926.us-central1.run.app/api/v1/docs
 
+Frontend de prueba:
+  https://react-frontend-584421432926.us-central1.run.app/
+
 Funcionalidades de la API
     Operaciones CRUD: Crear, consultar, actualizar y eliminar usuarios.
     Validación de datos: Se validan los usuarios haciendo uso de Pydantic.
@@ -107,3 +110,9 @@ Posibles mejoras:
   Manejo de roles
   Implementacion de cache
   Filtros avanzados
+
+
+Extra:
+
+  Frontend basico deployado con react conectado al cloud run para pruebas.
+  Ip: https://react-frontend-584421432926.us-central1.run.app/
