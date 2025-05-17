@@ -1,0 +1,152 @@
+from sqlalchemy.orm import Session
+from typing import List, Optional
+from datetime import datetime
+from app.schemas.users import User as UserSchema
+from app.models.users import UserCreate, UserUpdate
+
+
+def get_user(db: Session, user_id: int) -> Optional[UserSchema]:
+    """
+    Get a user by ID
+
+    Args:
+        db: Database session
+        user_id: ID of the user to retrieve
+
+    Returns:
+        User object or None if not found
+    """
+    return db.query(UserSchema).filter(UserSchema.id == user_id).first()
+
+
+def get_user_by_email(db: Session, email: str) -> Optional[UserSchema]:
+    """
+    Get a user by email
+
+    Args:
+        db: Database session
+        email: Email of the user to retrieve
+
+    Returns:
+        User object or None if not found
+    """
+    return db.query(UserSchema).filter(UserSchema.email == email).first()
+
+
+def get_user_by_username(db: Session, username: str) -> Optional[UserSchema]:
+    """
+    Get a user by username
+
+    Args:
+        db: Database session
+        username: Username of the user to retrieve
+
+    Returns:
+        User object or None if not found
+    """
+    return db.query(UserSchema).filter(UserSchema.username == username).first()
+
+
+def get_users(
+    db: Session,
+    skip: int = 0,
+    limit: int = 100,
+    active_only: bool = False
+) -> List[UserSchema]:
+    """
+    Get multiple users with pagination
+
+    Args:
+        db: Database session
+        skip: Number of records to skip
+        limit: Maximum number of records to return
+        active_only: If True, only return active users
+
+    Returns:
+        List of User objects
+    """
+    query = db.query(UserSchema)
+
+    if active_only:
+        query = query.filter(UserSchema.active == True)
+
+    return query.offset(skip).limit(limit).all()
+
+
+def create_user(db: Session, user: UserCreate) -> UserSchema:
+    """
+    Create a new user
+
+    Args:
+        db: Database session
+        user: User data to create
+
+    Returns:
+        Created User object
+    """
+    db_user = UserSchema(
+        username=user.username,
+        email=user.email,
+        first_name=user.first_name,
+        last_name=user.last_name,
+        role=user.role,
+        active=user.active,
+        created_at=datetime.utcnow(),
+        updated_at=datetime.utcnow()
+    )
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
+    return db_user
+
+
+def update_user(
+    db: Session,
+    user_id: int,
+    user_update: UserUpdate
+) -> Optional[UserSchema]:
+    """
+    Update an existing user
+
+    Args:
+        db: Database session
+        user_id: ID of the user to update
+        user_update: User data to update
+
+    Returns:
+        Updated User object or None if not found
+    """
+    db_user = get_user(db, user_id)
+    if not db_user:
+        return None
+
+    update_data = user_update.dict(exclude_unset=True)
+
+    for field, value in update_data.items():
+        setattr(db_user, field, value)
+
+    db_user.updated_at = datetime.utcnow()
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
+    return db_user
+
+
+def delete_user(db: Session, user_id: int) -> bool:
+    """
+    Delete a user
+
+    Args:
+        db: Database session
+        user_id: ID of the user to delete
+
+    Returns:
+        True if deleted, False if not found
+    """
+    db_user = get_user(db, user_id)
+    if not db_user:
+        return False
+
+    db.delete(db_user)
+    db.commit()
+    return True
