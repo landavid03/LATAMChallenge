@@ -1,0 +1,149 @@
+{
+	"info": {
+		"_postman_id": "0428dd26-e110-48de-9f64-3b499c74b1ab",
+		"name": "User API Collection",
+		"description": "Colección para probar los endpoints CRUD de usuarios",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "44289475"
+	},
+	"item": [
+		{
+			"name": "Create User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"username\": \"landavid03\",\n  \"email\": \"landavid03@gmail.com\",\n  \"first_name\": \"David\",\n  \"last_name\": \"Ramirez\",\n  \"role\": \"user\",\n  \"active\": true\n}"
+				},
+				"url": {
+					"raw": "https://user-management-api-584421432926.us-central1.run.app/api/v1/users/",
+					"protocol": "https",
+					"host": [
+						"user-management-api-584421432926",
+						"us-central1",
+						"run",
+						"app"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://user-management-api-584421432926.us-central1.run.app/api/v1/users/",
+					"protocol": "https",
+					"host": [
+						"user-management-api-584421432926",
+						"us-central1",
+						"run",
+						"app"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Specific User",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://user-management-api-584421432926.us-central1.run.app/api/v1/users/1",
+					"protocol": "https",
+					"host": [
+						"user-management-api-584421432926",
+						"us-central1",
+						"run",
+						"app"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"first_name\": \"Alberto\",\n  \"last_name\": \"Langarica\"\n}"
+				},
+				"url": {
+					"raw": "https://user-management-api-584421432926.us-central1.run.app/api/v1/users/1",
+					"protocol": "https",
+					"host": [
+						"user-management-api-584421432926",
+						"us-central1",
+						"run",
+						"app"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://user-management-api-584421432926.us-central1.run.app/api/v1/users/1",
+					"protocol": "https",
+					"host": [
+						"user-management-api-584421432926",
+						"us-central1",
+						"run",
+						"app"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

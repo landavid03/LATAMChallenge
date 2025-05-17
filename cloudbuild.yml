@@ -12,7 +12,7 @@ steps:
   - name: "gcr.io/$PROJECT_ID/user-management-api:$COMMIT_SHA"
     entrypoint: python
     args: ["-m", "pytest", "-v"]
-    secretEnv: ["DATABASE_URL"] # ✅ Ahora sí se usa
+    secretEnv: ["DATABASE_URL"]
     env:
       - "LOG_LEVEL=DEBUG"
 
