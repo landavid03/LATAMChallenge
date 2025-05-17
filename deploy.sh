@@ -3,7 +3,7 @@
 set -e
 
 # Variables
-PROJECT_ID="${PROJECT_ID:yy}"
+PROJECT_ID="${PROJECT_ID:-sound-proposal-447100-t1}"
 IMAGE_NAME="user-management-api"
 REGION="us-central1"
 COMMIT_SHA="${COMMIT_SHA:-$(git rev-parse --short HEAD)}"
@@ -15,15 +15,15 @@ echo "🔨 Building Docker image..."
 docker build -t "$IMAGE_URI" .
 
 # Subir imagen a Container Registry
-echo " Pushing image to Container Registry..."
+echo "Pushing image to Container Registry..."
 docker push "$IMAGE_URI"
 
 # Ejecutar tests
-echo " Running tests..."
+echo "🧪 Running tests..."
 docker run --rm -e DATABASE_URL="$DATABASE_URL" -e LOG_LEVEL="DEBUG" "$IMAGE_URI" python -m pytest -v
 
 # Desplegar en Cloud Run
-echo " Deploying to Cloud Run..."
+echo "Deploying to Cloud Run..."
 gcloud run deploy "$IMAGE_NAME" \
   --image="$IMAGE_URI" \
   --region="$REGION" \
@@ -36,4 +36,4 @@ gcloud run deploy "$IMAGE_NAME" \
   --port=$PORT \
   --set-env-vars="DATABASE_URL=$DATABASE_URL,LOG_LEVEL=INFO"
 
-echo " Deployment complete."
+echo "Deployment complete."
