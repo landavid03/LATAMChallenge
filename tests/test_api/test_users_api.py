@@ -5,7 +5,7 @@ from datetime import datetime
 
 
 def test_create_user(client):
-    """Test creating a new user"""
+    #Test creating a new user
     user_data = {
         "username": "newuser",
         "email": "new@example.com",
@@ -31,7 +31,7 @@ def test_create_user(client):
 
 
 def test_create_user_duplicate_username(client, test_user):
-    """Test creating a user with a duplicate username"""
+    #Test creating a user with a duplicate username
     user_data = {
         "username": test_user.username,  # Already exists
         "email": "unique@example.com",
@@ -48,7 +48,7 @@ def test_create_user_duplicate_username(client, test_user):
 
 
 def test_create_user_duplicate_email(client, test_user):
-    """Test creating a user with a duplicate email"""
+    #Test creating a user with a duplicate email
     user_data = {
         "username": "uniqueuser",
         "email": test_user.email,  # Already exists
@@ -65,7 +65,7 @@ def test_create_user_duplicate_email(client, test_user):
 
 
 def test_create_user_invalid_data(client):
-    """Test creating a user with invalid data"""
+    #Test creating a user with invalid data
     # Test with missing fields
     user_data = {
         "username": "invaliduser",
@@ -79,7 +79,7 @@ def test_create_user_invalid_data(client):
 
 
 def test_get_users(client, test_user, test_admin, test_inactive_user):
-    """Test getting all users"""
+    #Test getting all users
     response = client.get("/api/v1/users/")
 
     assert response.status_code == status.HTTP_200_OK
@@ -102,7 +102,7 @@ def test_get_users(client, test_user, test_admin, test_inactive_user):
 
 
 def test_get_user_by_id(client, test_user):
-    """Test getting a user by ID"""
+    #Test getting a user by ID
     response = client.get(f"/api/v1/users/{test_user.id}")
 
     assert response.status_code == status.HTTP_200_OK
@@ -113,7 +113,7 @@ def test_get_user_by_id(client, test_user):
 
 
 def test_get_user_not_found(client):
-    """Test getting a non-existent user"""
+    #Test getting a non-existent user
     response = client.get("/api/v1/users/999")  # Non-existent ID
 
     assert response.status_code == status.HTTP_404_NOT_FOUND
@@ -121,7 +121,7 @@ def test_get_user_not_found(client):
 
 
 def test_update_user(client, test_user):
-    """Test updating a user"""
+    #Test updating a user
     update_data = {
         "first_name": "Updated",
         "last_name": "Name",
@@ -142,7 +142,7 @@ def test_update_user(client, test_user):
 
 
 def test_update_user_not_found(client):
-    """Test updating a non-existent user"""
+    #Test updating a non-existent user
     update_data = {
         "first_name": "Updated"
     }
@@ -154,7 +154,7 @@ def test_update_user_not_found(client):
 
 
 def test_update_user_duplicate_username(client, test_user, test_admin):
-    """Test updating a user with a duplicate username"""
+    #Test updating a user with a duplicate username
     update_data = {
         "username": test_admin.username  # Already exists
     }
@@ -166,7 +166,7 @@ def test_update_user_duplicate_username(client, test_user, test_admin):
 
 
 def test_update_user_duplicate_email(client, test_user, test_admin):
-    """Test updating a user with a duplicate email"""
+    #Test updating a user with a duplicate email
     update_data = {
         "email": test_admin.email  # Already exists
     }
@@ -178,7 +178,7 @@ def test_update_user_duplicate_email(client, test_user, test_admin):
 
 
 def test_delete_user(client, test_user):
-    """Test deleting a user"""
+    #Test deleting a user
     response = client.delete(f"/api/v1/users/{test_user.id}")
 
     assert response.status_code == status.HTTP_204_NO_CONTENT
@@ -189,7 +189,7 @@ def test_delete_user(client, test_user):
 
 
 def test_delete_user_not_found(client):
-    """Test deleting a non-existent user"""
+    #Test deleting a non-existent user
     response = client.delete("/api/v1/users/999")  # Non-existent ID
 
     assert response.status_code == status.HTTP_404_NOT_FOUND

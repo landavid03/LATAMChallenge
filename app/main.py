@@ -62,24 +62,24 @@ async def global_exception_handler(request: Request, exc: Exception):
 
 @app.on_event("startup")
 def startup_event():
-    """Run actions on application startup"""
+    #Run actions on application startup
     logger.info("Starting User Management API Here")
     create_tables()
 
 
 @app.on_event("shutdown")
 def shutdown_event():
-    """Run actions on application shutdown"""
+    #Run actions on application shutdown
     logger.info("Shutting down User Management API")
 
 
 @app.get("/")
 def root():
-    """Root endpoint - redirects to documentation"""
+    #Root endpoint - redirects to documentation
     return {"message": f"User Management API - See documentation at {settings.API_V1_STR}/docs"}
 
 
 @app.get("/health")
 def health_check():
-    """Health check endpoint"""
+    #Health check endpoint
     return {"status": "healthy"}

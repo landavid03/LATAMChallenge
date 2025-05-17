@@ -5,7 +5,7 @@ from typing import List
 
 
 class Settings(BaseSettings):
-    """Application configuration settings."""
+    #Application configuration settings.
 
     # API Settings
     API_V1_STR: str = "/api/v1"

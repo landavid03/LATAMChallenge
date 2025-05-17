@@ -22,9 +22,8 @@ TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engin
 
 @pytest.fixture(scope="function")
 def db():
-    """
-    Create a clean database for each test
-    """
+    #Create a clean database for each test
+
     # Create the test database and tables
     Base.metadata.create_all(bind=engine)
 
@@ -40,9 +39,8 @@ def db():
 
 @pytest.fixture(scope="function")
 def client(db):
-    """
-    Create a test client using the test database
-    """
+    #Create a test client using the test database
+
 
     # Override the get_db dependency
     def override_get_db():
@@ -62,9 +60,8 @@ def client(db):
 
 @pytest.fixture(scope="function")
 def test_user(db):
-    """
-    Create a test user in the database
-    """
+    #Create a test user in the database
+
     user = UserSchema(
         username="testuser",
         email="test@example.com",
@@ -81,9 +78,8 @@ def test_user(db):
 
 @pytest.fixture(scope="function")
 def test_admin(db):
-    """
-    Create a test admin in the database
-    """
+    #Create a test admin in the database
+
     admin = UserSchema(
         username="adminuser",
         email="admin@example.com",
@@ -100,9 +96,8 @@ def test_admin(db):
 
 @pytest.fixture(scope="function")
 def test_inactive_user(db):
-    """
-    Create an inactive test user in the database
-    """
+    #Create an inactive test user in the database
+
     user = UserSchema(
         username="inactiveuser",
         email="inactive@example.com",

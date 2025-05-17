@@ -34,16 +34,6 @@ def create_user(
     user: UserCreate,
     db: Session = Depends(get_db)
 ):
-    """
-    Create a new user with all the necessary information:
-
-    - **username**: unique username (3-50 characters)
-    - **email**: unique email address
-    - **first_name**: first name (1-50 characters)
-    - **last_name**: last name (1-50 characters)
-    - **role**: role (admin, user, or guest)
-    - **active**: whether the user is active
-    """
     # Check if user with same email exists
     existing_email = user_crud.get_user_by_email(db, user.email)
     if existing_email:
@@ -72,13 +62,6 @@ def get_users(
     active_only: bool = Query(False, description="Only return active users"),
     db: Session = Depends(get_db)
 ):
-    """
-    Get a list of users with pagination:
-
-    - **skip**: number of users to skip (for pagination)
-    - **limit**: maximum number of users to return
-    - **active_only**: if true, only return active users
-    """
     logger.info(f"Getting users with skip={skip}, limit={limit}, active_only={active_only}")
     return user_crud.get_users(db, skip=skip, limit=limit, active_only=active_only)
 
@@ -93,11 +76,6 @@ def get_user(
     user_id: int = Path(..., ge=1, description="The ID of the user to get"),
     db: Session = Depends(get_db)
 ):
-    """
-    Get a specific user by ID:
-
-    - **user_id**: ID of the user to retrieve
-    """
     logger.info(f"Getting user with id={user_id}")
     db_user = user_crud.get_user(db, user_id)
     if not db_user:
@@ -117,12 +95,6 @@ def update_user(
     user_id: int = Path(..., ge=1, description="The ID of the user to update"),
     db: Session = Depends(get_db)
 ):
-    """
-    Update a user's information:
-
-    - **user_id**: ID of the user to update
-    - **user_update**: Fields to update (only include fields you want to change)
-    """
     logger.info(f"Updating user with id={user_id}")
 
     # Check if username is being updated and if it already exists
@@ -157,11 +129,6 @@ def delete_user(
     user_id: int = Path(..., ge=1, description="The ID of the user to delete"),
     db: Session = Depends(get_db)
 ):
-    """
-    Delete a user by ID:
-
-    - **user_id**: ID of the user to delete
-    """
     logger.info(f"Deleting user with id={user_id}")
     success = user_crud.delete_user(db, user_id)
     if not success:

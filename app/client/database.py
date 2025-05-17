@@ -20,9 +20,6 @@ Base = declarative_base()
 
 
 def get_db():
-    """
-    Dependency function that yields db sessions
-    """
     db = SessionLocal()
     logger.debug("Database session started")
     try:
@@ -33,9 +30,7 @@ def get_db():
 
 
 def create_tables():
-    """
-    Create all tables in the database
-    """
+    #Create all tables in the database
     try:
         from app.schemas.users import User
 
