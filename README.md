@@ -1,89 +1,109 @@
-# Software Engineer Challenge
+API Gestion de Usuarios
 
-## Overview
-Welcome to the Software Engineer Application Challenge. In this challenge, you will demonstrate your skills in backend development, API design, testing, and cloud deployment.
+Se desarrollo esta API haciendo uso del framework de python FastAPI.
 
-## Problem
-You will develop a RESTful API for user management with complete CRUD (Create, Read, Update, Delete) operations. The application should handle user data with the following attributes:
+IP productiva:
+    https://user-management-api-584421432926.us-central1.run.app/api/v1/docs
 
-| Field       | Description                              |
-|-------------|------------------------------------------|
-| id          | Unique identifier for each user          |
-| username    | User's unique username                   |
-| email       | User's email address                     |
-| first_name  | User's first name                        |
-| last_name   | User's last name                         |
-| role        | User role (admin, user, guest)           |
-| created_at  | Timestamp when the user was created      |
-| updated_at  | Timestamp when the user was last updated |
-| active      | Boolean indicating if the user is active |
-
-## Challenge
-
-### Context:
-In today's digital landscape, effective user management is a foundational component of virtually all software applications. This challenge simulates a real-world scenario where a user management API is needed for a growing application.
-
-As a Software Engineer, you've been tasked with building a robust and scalable user management API that will serve as the backbone for user-related operations. The API should provide a clean interface for creating, retrieving, updating, and deleting user profiles while ensuring data integrity and following industry best practices.
-
-Beyond just functionality, we're interested in seeing your approach to software architecture, code organization, testing strategies, and cloud deployment skills. This challenge is designed to showcase not only your technical abilities but also your understanding of production-ready software development.
+Funcionalidades de la API
+    Operaciones CRUD: Crear, consultar, actualizar y eliminar usuarios.
+    Validación de datos: Se validan los usuarios haciendo uso de Pydantic.
+    Documentación automática: Se documentaron los Endpoints con OpenAPI/Swagger.
+    Manejo de errores: Se agregaron excepciones y Manejo de errores.
+    Base de datos: Se hizo uso de sqlLite y de ORM se uso SQLAlchemy.
+    Pruebas automatizadas: Se realizaron los tests con pytest.
+    Despliegue en la nube: Se hizo la configuración para desplegar en GCP.
+    Logging: Se realizo un registro básico de eventos y errores.
 
 
-### API Development
-Develop an API with FastAPI:
+Estructura del Proyecto
+    El proyecto está organizado con una arquitectura modular y limpia que incluye:
+      Separación de responsabilidades (rutas, modelos, esquemas, lógica de negocio)
+      Manejo de errores
+      Gestión de configuraciones
 
-- Implement all CRUD endpoints for user management
-- Add proper input validation for all requests
-- Document all endpoints using OpenAPI/Swagger
-- Implement proper error handling for edge cases
-- The API should connect to a database of your choice (SQL or NoSQL)
-- Write detailed API tests using pytest
-- Deploy your API to Google Cloud Platform (GCP)
+Tecnologías Utilizadas
+    Python: Lenguaje de programacion
+    SqlLite: Base de datos
+    FastAPI: Framework para APIs web
+    SQLAlchemy: ORM potente y flexible
+    Pydantic: Validación de datos
+    Pytest: Framework de pruebas
+    Docker: Contenerización del proyecto
+    Google Cloud Run: Despliegue sin servidores
+    Google Cloud Build: CI / CD
 
-Requirements:
-- You must use FastAPI as the framework
-- Provide examples of API calls for each endpoint in your documentation
-- Write clean, maintainable code with proper comments
-- The API should follow REST best practices
-- Include at least basic logging functionality
-- Create a `cloudbuild.yaml` file for Google Cloud Build that includes:
-  - Building the Docker image
-  - Running tests
-  - Deploying the application to Google Cloud Run or App Engine
+Endpoints Principales
+    GET /api/v1/users/: Obtiene todos los usuarios con paginación y filtros
+    GET /api/v1/users/{id}: Obtiene un usuario por ID
+    POST /api/v1/users/: Crea un nuevo usuario
+    PUT /api/v1/users/{id}: Actualiza un usuario existente
+    DELETE /api/v1/users/{id}: Elimina un usuario
 
-### Evaluation Criteria
-Your submission will be evaluated based on the following criteria:
+Validación de Datos
+    Validación de todos los campos con modelos de Pydantic
+    Comprobación de tipos, restricciones en campos y validación de emails
+    Validación de roles permitidos: admin, user, guest
 
-- **Code Quality**: Readability, organization, and adherence to Python best practices
-- **API Design**: Proper implementation of RESTful principles and resource modeling
-- **Data Handling**: Effective data validation, error handling, and database integration
-- **Testing**: Comprehensive test coverage and proper test organization
-- **Documentation**: Clear and complete API documentation
-- **Cloud Deployment**: Successful deployment to GCP and proper configuration
-- **CI/CD Implementation**: Quality and completeness of the `cloudbuild.yaml` file
-- **Overall Functionality**: The API works as expected for all CRUD operations
+Manejo de Errores
+    Clases de excepciones para distintos errores
+    Códigos HTTP adecuados para cada response
+    Mensajes de error
 
-### Submission Instructions
-To submit your challenge, you must do a POST request to: https://advana-challenge-check-api-cr-k4hdbggvoq-uc.a.run.app/software-engineer
+Integración con Base de Datos
+    ORM SQLAlchemy para hacer las operaciones
+    Soporte para distintos motores de base de datos (unicamente modificando el cliente)
+    Manejo de sesiones y transacciones
 
-This is an example of the body you must send:
 
-```json
-{
-  "name": "Juan Perez",
-  "mail": "juan.perez@example.com",
-  "github_url": "https://github.com/juanperez/se-challenge.git",
-  "api_url": "https://juan-perez.api"
-}
-```
+Pruebas Automatizadas
+    Pruebas de cada endpoint
+    Pruebas de cada operación CRUD
 
-PLEASE, SEND THE REQUEST ONLY ONCE.
-If your request was successful, you will receive this message:
+CI/CD
+    Configuración con Google Cloud Build
+    Archivo de cloudbuild.yml para despligue automatico
+    Pipeline automatizado: construcción, pruebas y despliegue
+    Manejo de variables de entorno
 
-```
-jsonCopiar{
-  "status": "OK",
-  "detail": "your request was received"
-}
-```
+Ejecucion
+    Instrucciones de Ejecucion en local
 
-NOTE: We recommend sending the challenge even if you didn't manage to finish all the parts.
+      Instalar requerimientos:
+        Version de python 3.10
+          pip install -r requirements.txt
+
+      Ejecutar el servidor:
+        uvicorn app.main:app --reload
+
+      Visualizar la documentacion
+        http://localhost:8000/api/v1/docs
+
+    Instrucciones de Ejecucion en local con Docker
+
+      Construir imagen:
+        docker build -t user-management-api .
+
+      Ejecutar contenedor:
+        docker run -d -p 8000:8000 --name user-api user-management-api
+
+      Visualizar la documentacion
+        http://localhost:8000/api/v1/docs
+
+    Instucciones de Ejecucion directa a cloud run:
+
+      Instalar y configurar gcloud
+
+      Dar permisos al archivo deploy.sh
+        chmod +x ./deploy.sh
+
+      Ejecutar archivo deploy.sh
+        ./deploy.sh
+
+    Dentro del repositorio se encuentra una coleccion de POSTMAN para probar los Endpoints
+
+Posibles mejoras:
+  Implementacion de Autenticacion
+  Manejo de roles
+  Implementacion de cache
+  Filtros avanzados

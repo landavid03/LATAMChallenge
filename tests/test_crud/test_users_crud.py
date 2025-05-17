@@ -6,7 +6,7 @@ from app.schemas.users import User as UserSchema
 
 
 def test_get_user(db, test_user):
-    """Test getting a user by ID"""
+    #Test getting a user by ID"""
     user = user_crud.get_user(db, test_user.id)
     assert user is not None
     assert user.id == test_user.id
@@ -15,13 +15,13 @@ def test_get_user(db, test_user):
 
 
 def test_get_user_not_found(db):
-    """Test getting a non-existent user"""
+    #Test getting a non-existent user"""
     user = user_crud.get_user(db, 999)  # Non-existent ID
     assert user is None
 
 
 def test_get_user_by_email(db, test_user):
-    """Test getting a user by email"""
+    #Test getting a user by email"""
     user = user_crud.get_user_by_email(db, test_user.email)
     assert user is not None
     assert user.id == test_user.id
@@ -29,13 +29,13 @@ def test_get_user_by_email(db, test_user):
 
 
 def test_get_user_by_email_not_found(db):
-    """Test getting a user by non-existent email"""
+    #Test getting a user by non-existent email"""
     user = user_crud.get_user_by_email(db, "nonexistent@example.com")
     assert user is None
 
 
 def test_get_user_by_username(db, test_user):
-    """Test getting a user by username"""
+    #Test getting a user by username"""
     user = user_crud.get_user_by_username(db, test_user.username)
     assert user is not None
     assert user.id == test_user.id
@@ -43,13 +43,13 @@ def test_get_user_by_username(db, test_user):
 
 
 def test_get_user_by_username_not_found(db):
-    """Test getting a user by non-existent username"""
+    #Test getting a user by non-existent username"""
     user = user_crud.get_user_by_username(db, "nonexistentuser")
     assert user is None
 
 
 def test_get_users(db, test_user, test_admin, test_inactive_user):
-    """Test getting all users"""
+    #Test getting all users"""
     users = user_crud.get_users(db)
     assert len(users) == 3  # All users including inactive
 
@@ -63,7 +63,7 @@ def test_get_users(db, test_user, test_admin, test_inactive_user):
 
 
 def test_create_user(db):
-    """Test creating a new user"""
+    #Test creating a new user"""
     user_create = UserCreate(
         username="newuser",
         email="new@example.com",
@@ -88,7 +88,7 @@ def test_create_user(db):
 
 
 def test_update_user(db, test_user):
-    """Test updating an existing user"""
+    #Test updating an existing user"""
     user_update = UserUpdate(
         first_name="Updated",
         last_name="Name",
@@ -114,7 +114,7 @@ def test_update_user(db, test_user):
 
 
 def test_update_user_not_found(db):
-    """Test updating a non-existent user"""
+    #Test updating a non-existent user"""
     user_update = UserUpdate(first_name="Updated")
 
     updated_user = user_crud.update_user(db, 999, user_update)  # Non-existent ID
@@ -123,7 +123,7 @@ def test_update_user_not_found(db):
 
 
 def test_delete_user(db, test_user):
-    """Test deleting a user"""
+    #Test deleting a user"""
     result = user_crud.delete_user(db, test_user.id)
 
     assert result is True
@@ -134,7 +134,7 @@ def test_delete_user(db, test_user):
 
 
 def test_delete_user_not_found(db):
-    """Test deleting a non-existent user"""
+    #Test deleting a non-existent user"""
     result = user_crud.delete_user(db, 999)  # Non-existent ID
 
     assert result is False
