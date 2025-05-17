@@ -3,7 +3,7 @@
 set -e
 
 # Variables
-PROJECT_ID="${PROJECT_ID:-your-gcp-project-id}"
+PROJECT_ID="${PROJECT_ID:yy}"
 IMAGE_NAME="user-management-api"
 REGION="us-central1"
 COMMIT_SHA="${COMMIT_SHA:-$(git rev-parse --short HEAD)}"
